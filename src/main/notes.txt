@@ -1,0 +1,4 @@
+SELECT p.name, e.name FROM
+PERSON as p
+INNER JOIN ELECTRONICDEVICE as e ON e.OWNER_ID=p.id
+

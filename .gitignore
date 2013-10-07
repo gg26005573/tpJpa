@@ -1,0 +1,11 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+persistence.xml
+.project
+**target
+**.class
+*.classpath
