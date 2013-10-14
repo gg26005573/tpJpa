@@ -2,6 +2,8 @@
 **.classpath
 **.idea
 **.idea/
-**.target/
+**/target/
 **.settings/
+**.class
+**.jar
 
