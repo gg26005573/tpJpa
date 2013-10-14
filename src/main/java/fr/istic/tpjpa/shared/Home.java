@@ -1,4 +1,4 @@
-package fr.istic.tpjpa;
+package fr.istic.tpjpa.shared;
 
 import java.util.ArrayList;
 import java.util.List;

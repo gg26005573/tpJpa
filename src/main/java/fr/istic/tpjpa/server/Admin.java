@@ -14,10 +14,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import fr.istic.tpjpa.Address;
-import fr.istic.tpjpa.EntityManagerFactory;
-import fr.istic.tpjpa.Home;
-import fr.istic.tpjpa.Person;
+import fr.istic.tpjpa.shared.Address;
+import fr.istic.tpjpa.shared.EntityManagerFactory;
+import fr.istic.tpjpa.shared.Home;
+import fr.istic.tpjpa.shared.Person;
 
 @Path("/services")
 public class Admin {

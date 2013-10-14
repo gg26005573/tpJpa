@@ -1,4 +1,4 @@
-package fr.istic.tpjpa;
+package fr.istic.tpjpa.shared;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

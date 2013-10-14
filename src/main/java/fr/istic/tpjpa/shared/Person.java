@@ -1,4 +1,4 @@
-package fr.istic.tpjpa;
+package fr.istic.tpjpa.shared;
 
 import java.beans.Transient;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Person {
+public class Person implements PersonItf {
 	private Long id;
 	
 	private String name;
