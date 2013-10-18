@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class JpaTest {
@@ -24,23 +23,45 @@ public class JpaTest {
 		EntityManager manager = factory.createEntityManager();
 		JpaTest test = new JpaTest(manager);
 
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-
-		// creating entities
-		try{
-			test.createStuff();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-
-		// persist entity
-
-		tx.commit();
+//		EntityTransaction tx = manager.getTransaction();
+//		tx.begin();
+//
+//		// creating entities
+//		try{
+//			test.createStuff();
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+//
+//		// persist entity
+//
+//		tx.commit();
 
 		// run request
 		
 		test.listDevices();
+		
+		Long nbPeople = manager.createQuery("SELECT count(p.id) FROM Person p", Long.class).getSingleResult();
+		System.out.println("nbPeople == "+nbPeople);
+		
+		try{
+			System.out.println("Trying to get Homer Simpson");
+			Person.getPersonsByName("Homer Simpson");
+			System.out.println("Homer Simpson gotten without errors");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		nbPeople = manager.createQuery("SELECT count(p.id) FROM Person p", Long.class).getSingleResult();
+		System.out.println("nbPeople == "+nbPeople);
+		
+		try{
+			System.out.println("Trying to get Person 1");
+			Person.getPersonByID(1L);
+			System.out.println("Person 1 gotten without errors");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
 		System.out.println(".. done");
 
