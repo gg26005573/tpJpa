@@ -9,7 +9,9 @@ public class EntityManagerFactory {
 	
 	public static EntityManager getInstance(){
 		if(em==null){
-			javax.persistence.EntityManagerFactory factory = Persistence.createEntityManagerFactory("example");
+			javax.persistence.EntityManagerFactory factory = Persistence.createEntityManagerFactory("tpJpa-pu");
+			if(factory==null)
+				System.err.println("fr.istic.tpjpa.shared.EntityManagerFactory.getINstance(): error while creating an javax.persistence.EntityManagerFactory");
 			em = factory.createEntityManager();
 		}
 		return em;

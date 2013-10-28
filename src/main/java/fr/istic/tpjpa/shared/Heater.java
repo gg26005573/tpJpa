@@ -6,6 +6,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Heater extends Device{
 	
+	// The ID is inherited
+	
 	private Home location;
 	
 	public Heater() {

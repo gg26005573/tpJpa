@@ -37,7 +37,6 @@ public class PersonResource {
 	@GET @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
 	public Person getPerson(@PathParam("id") Long id){
-		System.err.println("*** *** Getting Person #"+id+" *** ***");
 		return Person.getPersonByID(id);
 	}
 	
@@ -54,7 +53,6 @@ public class PersonResource {
 		// We get the person
 		Person p;
 		try {
-			System.err.println("*** *** Getting Person #"+id+" *** ***");
 			p = Person.getPersonByID(id);
 		} catch (Exception e) {
 			e.getStackTrace();

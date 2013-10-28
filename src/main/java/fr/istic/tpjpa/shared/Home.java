@@ -56,7 +56,7 @@ public class Home {
 		this.owner = owner;
 	}
 	
-	@OneToMany(mappedBy="location", cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="location", cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
 	public List<Heater> getHeaters() {
 		return heaters;
 	}

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -54,7 +55,6 @@ public class Person implements PersonItf {
 		Root<Person> from = query.from(Person.class);
 		query.select(from).where(from.get("id").in(id));
 		Person res = manager.createQuery(query).getSingleResult();
-		System.err.println("*** *** Person="+res+" *** ***");
 		return res;
 	}
 	
@@ -76,7 +76,7 @@ public class Person implements PersonItf {
 		this.name = name;
 	}
 	
-	@OneToMany(mappedBy="owner", cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="owner", cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
 	public List<Home> getHomes() {
 		return homes;
 	}

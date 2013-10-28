@@ -24,6 +24,8 @@ public class glagerseygwt implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 
+		System.err.println("*** *** Totoro powa!!! *** ***");
+		
 		// Create a text
 		final TextBox area = new TextBox();
 		area.setValue("2");
