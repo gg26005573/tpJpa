@@ -46,7 +46,7 @@ public class JpaTest {
 		
 		try{
 			System.out.println("Trying to get Homer Simpson");
-			Person.getPersonsByName("Homer Simpson");
+			BDDUtil.getPersonsByName("Homer Simpson");
 			System.out.println("Homer Simpson gotten without errors");
 		}catch(Exception e){
 			e.printStackTrace();
@@ -57,7 +57,7 @@ public class JpaTest {
 		
 		try{
 			System.out.println("Trying to get Person 1");
-			Person.getPersonByID(1L);
+			BDDUtil.getPersonByID(1L);
 			System.out.println("Person 1 gotten without errors");
 		}catch(Exception e){
 			e.printStackTrace();

@@ -14,6 +14,8 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
+import fr.istic.tpjpa.shared.PersonItf;
+
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
@@ -46,12 +48,12 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 					public void onResponseReceived(Request request,
 							Response response) {
 						if (200 == response.getStatusCode()) {
-//							PersonJsonConverter converter = PersonJsonConverter
-//									.getInstance();
-//							PersonItf p = converter
-//									.deserializeFromJson(response.getText());
-//							 Window.alert("Name: " + p.getName()
-//							 + ", Devices: " + p.getDevices());
+							PersonJsonConverter converter = PersonJsonConverter
+									.getInstance();
+							PersonItf p = converter
+									.deserializeFromJson(response.getText());
+							 Window.alert("Name: " + p.getName()
+							 + ", Devices: " + p.getDevices());
 							// Window.alert("Serialized person: " +
 							// response.getText());
 						}

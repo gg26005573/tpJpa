@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,9 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -30,7 +26,7 @@ public class Home {
 	private Address address;
 	
 	public Home() {
-		this.heaters = new ArrayList<>();
+		this.heaters = new ArrayList<Heater>();
 	}
 	
 	public Home(Address address) {
@@ -91,18 +87,4 @@ public class Home {
 		return res + "";
 	}
 	
-	public static List<Home> getHomeByOwner(Long id){
-		EntityManager manager = EntityManagerFactory.getInstance();
-		List<Home> results = manager.createQuery("SELECT h FROM Home AS h WHERE owner="+id, Home.class).getResultList();
-		return results;
-	}
-	
-	public static Home getHomeByID(Long id){
-		EntityManager manager = EntityManagerFactory.getInstance();
-		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
-		CriteriaQuery<Home> query = criteriaBuilder.createQuery(Home.class);
-		Root<Home> from = query.from(Home.class);
-		query.select(from).where(from.get("id").in(id));
-		return manager.createQuery(query).getSingleResult();
-	}
 }
