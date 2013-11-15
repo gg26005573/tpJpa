@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 public class Address {
 	private Long id;
@@ -42,6 +44,7 @@ public class Address {
 	}
 	
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="address")
+	@JsonIgnore
 	public Home getHome() {
 		return home;
 	}

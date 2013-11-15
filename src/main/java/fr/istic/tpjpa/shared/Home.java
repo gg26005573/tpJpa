@@ -17,6 +17,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 public class Home {
 	private Long id;
@@ -48,6 +50,7 @@ public class Home {
 	}
 	
 	@ManyToOne
+	@JsonIgnore
 	public Person getOwner() {
 		return owner;
 	}

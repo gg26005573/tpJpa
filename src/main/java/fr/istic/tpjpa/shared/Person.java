@@ -29,9 +29,9 @@ public class Person implements PersonItf {
 	private List<ElectronicDevice> devices;
 	
 	public Person() {
-		friends = new ArrayList<>();
-		homes = new ArrayList<>();
-		devices = new ArrayList<>();
+		friends = new ArrayList<Person>();
+		homes = new ArrayList<Home>();
+		devices = new ArrayList<ElectronicDevice>();
 	}
 	
 	public Person(String name) {

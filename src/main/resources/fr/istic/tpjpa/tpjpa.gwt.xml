@@ -12,9 +12,10 @@
 
 
   <!-- Other module inherits                                      -->
-  <inherits name="com.google.web.bindery.autobean.AutoBean" />	
+  <inherits name="com.google.web.bindery.autobean.AutoBean" />
+  <!-- <inherits name="javax.persistence.EntityManager" /> -->	
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='fr.istic.tpjpa.client.glagerseygwt' />
+  <entry-point class='fr.istic.tpjpa.client.TpJpaGWTEntryPoint' />
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client' />
