@@ -36,7 +36,7 @@ public class PersonJsonConverter {
 		return AutoBeanCodex.encode(bean).getPayload();
 	}
 
-	PersonItf deserializeFromJson(String json) {
+	PersonItf deserializePersonFromJson(String json) {
 		AutoBean<PersonItf> bean = AutoBeanCodex.decode(factory, PersonItf.class,
 				json);
 		return bean.as();

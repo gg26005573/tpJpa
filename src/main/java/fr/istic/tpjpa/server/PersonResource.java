@@ -37,8 +37,8 @@ public class PersonResource {
 	 */
 	@GET @Path("/named/{name}")
     @Produces({ MediaType.APPLICATION_JSON })
-	public List<Person> getPerson(@PathParam("name") String name){
-		return BDDUtil.getPersonsByName(name);
+	public Person getPerson(@PathParam("name") String name){
+		return BDDUtil.getPersonsByName(name).get(0);
 	}
 	
 	/* (non-Javadoc)
