@@ -52,8 +52,11 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 									.getInstance();
 							PersonItf p = converter
 									.deserializeFromJson(response.getText());
-							 Window.alert("Name: " + p.getName()
-							 + ", Devices: " + p.getDevices());
+//							 Window.alert("Name: " + p.getName()
+//							 + ", Devices: " + p.getDevices());
+							 Formater.displayPerson(
+									 RootPanel.get("displayPerson"),
+									 p);
 							// Window.alert("Serialized person: " +
 							// response.getText());
 						}
