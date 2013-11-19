@@ -5,15 +5,31 @@
 h1 {
   font-size: 200%;
   font-weight: bold;
-  color: #777777;
+  color: #001648;
   margin: 40px 0px 50px;
   text-align: center;
 }
 
 h3 {
-  color: #777777;
+  color: #001648;
   margin: 40px 0px 40px;
   text-align: center;
+}
+
+body {
+	background-color: #b5ceff !important;
+}
+
+.center {
+	text-align: center;
+}
+
+.hidden{
+	display:none;
+}
+
+.visible{
+	display:block;
 }
 
 .sendButton {
