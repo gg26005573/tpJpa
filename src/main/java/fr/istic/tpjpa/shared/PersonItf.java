@@ -8,4 +8,5 @@ public interface PersonItf {
 	public void setId(Long id);
 	public List<Person> getFriends();
 	public List<ElectronicDevice> getDevices();
+	public List<Home> getHomes();
 }

@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import fr.istic.tpjpa.shared.ElectronicDevice;
+import fr.istic.tpjpa.shared.Home;
 import fr.istic.tpjpa.shared.Person;
 import fr.istic.tpjpa.shared.PersonItf;
 
@@ -38,21 +39,21 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 		// Make a command that we will execute from all leaves.
 		Command cmd = new Command() {
 			public void execute() {
-				hideMario();
+				clearProcess();
 				Window.alert("You selected a menu item!");
 			}
 		};
 
 		Command searchPersonCmd = new Command() {
 			public void execute() {
-				hideMario();
+				clearProcess();
 				displayPersonSearch();
 			}
 		};
 
 		Command createPersonCmd = new Command() {
 			public void execute() {
-				hideMario();
+				clearProcess();
 				displayPersonCreate();
 			}
 		};
@@ -93,12 +94,14 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 		final TextBox idBox = new TextBox();
 		idBox.setValue("");
 		byID.add(idBox);
+		
 
 		Button buttonID = new Button();
 		byID.add(buttonID);
 		buttonID.setText("Search by ID");
 		buttonID.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				clearResults();
 				searchPersonById(idBox.getText());
 			}
 		});
@@ -112,12 +115,14 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 		final TextBox nameBox = new TextBox();
 		nameBox.setValue("");
 		byName.add(nameBox);
+		
 
 		Button buttonName = new Button();
 		byName.add(buttonName);
 		buttonName.setText("Search by Name");
 		buttonName.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				clearResults();
 				searchPersonByName(nameBox.getText());
 			}
 		});
@@ -175,7 +180,7 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 
 			public void onResponseReceived(Request request, Response response) {
 				if (200 == response.getStatusCode()) {
-					PersonJsonConverter converter = PersonJsonConverter
+					JsonConverter converter = JsonConverter
 							.getInstance();
 					PersonItf p = converter.deserializePersonFromJson(response
 							.getText());
@@ -203,7 +208,7 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 
 			public void onResponseReceived(Request request, Response response) {
 				if (200 == response.getStatusCode()) {
-					PersonJsonConverter converter = PersonJsonConverter
+					JsonConverter converter = JsonConverter
 							.getInstance();
 					PersonItf p = converter.deserializePersonFromJson(response
 							.getText());
@@ -219,32 +224,13 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 			hideMario();
 		}
 	}
-
+	
 	private void createPerson(final String name, final String address) {
 
-		Window.alert("Creating " + name + " @ " + address);
 
 		RequestBuilder reqCreatePerson = new RequestBuilder(RequestBuilder.GET,
 				GWT.getHostPageBaseURL() + "rest/person/create/" + name);
-
-		final RequestCallback homeCreated = new RequestCallback() {
-			public void onError(Request request, Throwable exception) {
-				Window.alert(exception.getMessage());
-			}
-
-			public void onResponseReceived(Request request, Response response) {
-				if (200 == response.getStatusCode()) {
-
-					Window.alert("The home at " + address + " is created.");
-					PersonJsonConverter converter = PersonJsonConverter
-							.getInstance();
-					PersonItf p = converter.deserializePersonFromJson(response
-							.getText());
-					displayPerson(RootPanel.get("gwtResult"), p);
-					displayMario();
-				}
-			}
-		};
+		
 
 		final RequestCallback personCreated = new RequestCallback() {
 			public void onError(Request request, Throwable exception) {
@@ -253,18 +239,26 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 
 			public void onResponseReceived(Request request, Response response) {
 				if (200 == response.getStatusCode()) {
-					Integer id = Integer.decode(response.getText());
-
-					Window.alert(name + " created, it's ID is " + id);
+					final Integer id = Integer.decode(response.getText());
 
 					RequestBuilder reqCreateHome = new RequestBuilder(
 							RequestBuilder.GET, GWT.getHostPageBaseURL()
-									+ "person/" + id + "/createhome/" + address);
+									+ "rest/person/" + id + "/createhome/" + address);
 
+					RequestCallback homeCreated = new RequestCallback() {
+						public void onError(Request request, Throwable exception) {
+							Window.alert(exception.getMessage());
+						}
+
+						public void onResponseReceived(Request request, Response response) {
+							if (200 == response.getStatusCode()) {
+
+								searchPersonById(""+id);
+							}
+						}
+					};
+					
 					reqCreateHome.setCallback(homeCreated);
-
-					Window.alert("Sending request for the creation the home at "
-							+ address);
 
 					try {
 						reqCreateHome.send();
@@ -272,18 +266,12 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 						e.printStackTrace();
 						hideMario();
 					}
-				} else {
-					Window.alert("Response recieved with cod ID: "
-							+ response.getStatusCode() + "\nContent: "
-							+ response.getText());
-
-				}
+				} 
 			}
 		};
 
 		reqCreatePerson.setCallback(personCreated);
 
-		Window.alert("Sending request for the creation of " + name);
 
 		try {
 			reqCreatePerson.send();
@@ -299,6 +287,18 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 
 	public void hideMario() {
 		RootPanel.get("mario").setStylePrimaryName("hidden center");
+	}
+	
+	public void clearProcess(){
+		RootPanel panel = RootPanel.get("gwtProcess");
+		panel.clear();
+		hideMario();
+	}
+	
+	public void clearResults(){
+		RootPanel panel = RootPanel.get("gwtResult");
+		panel.clear();
+		hideMario();
 	}
 
 	public void displayPerson(RootPanel panel, PersonItf p) {
@@ -319,6 +319,13 @@ public class TpJpaGWTEntryPoint implements EntryPoint {
 			vp.add(new Label("Friends : "));
 		for (Person f : friends) {
 			vp.add(new Label("  - " + f.getName() + " (ID=" + f.getId() + ")"));
+		}
+		List<Home> homes = p.getHomes();
+		if (!homes.isEmpty())
+			vp.add(new Label("Homes : "));
+		for (Home h : homes) {
+			vp.add(new Label("  - " + h.toString()));
+			vp.add(new Label("  - " + h.getAddress().getFullAddress() + " (ID=" + h.getId() + ")"));
 		}
 	}
 }

@@ -21,6 +21,17 @@ public class PersonItfAutoBean extends com.google.web.bindery.autobean.shared.im
       }
       return toReturn;
     }
+    public java.util.List getHomes()  {
+      java.util.List toReturn = PersonItfAutoBean.this.getWrapped().getHomes();
+      if (toReturn != null) {
+        if (PersonItfAutoBean.this.isWrapped(toReturn)) {
+          toReturn = PersonItfAutoBean.this.getFromWrapper(toReturn);
+        } else {
+          toReturn = new emul.java.util.ListAutoBean(getFactory(), toReturn).as();
+        }
+      }
+      return toReturn;
+    }
     public java.util.List getFriends()  {
       java.util.List toReturn = PersonItfAutoBean.this.getWrapped().getFriends();
       if (toReturn != null) {
@@ -65,6 +76,9 @@ public class PersonItfAutoBean extends com.google.web.bindery.autobean.shared.im
       public java.util.List getDevices()  {
         return (java.util.List) PersonItfAutoBean.this.getOrReify("devices");
       }
+      public java.util.List getHomes()  {
+        return (java.util.List) PersonItfAutoBean.this.getOrReify("homes");
+      }
       public java.util.List getFriends()  {
         return (java.util.List) PersonItfAutoBean.this.getOrReify("friends");
       }
@@ -107,6 +121,17 @@ public class PersonItfAutoBean extends com.google.web.bindery.autobean.shared.im
       if (bean != null) { bean.traverse(visitor, ctx); }
     }
     visitor.endVisitCollectionProperty("devices", bean, propertyContext);
+    bean = (com.google.web.bindery.autobean.shared.impl.AbstractAutoBean) com.google.web.bindery.autobean.shared.AutoBeanUtils.getAutoBean(as.getHomes());
+    propertyContext = new com.google.web.bindery.autobean.gwt.client.impl.ClientPropertyContext(
+      as,
+      com.google.web.bindery.autobean.gwt.client.impl.ClientPropertyContext.Setter.beanSetter(PersonItfAutoBean.this, "homes"),
+      new Class<?>[] {java.util.List.class, fr.istic.tpjpa.shared.Home.class},
+      new int[] {1, 0}
+    );
+    if (visitor.visitCollectionProperty("homes", bean, propertyContext)) {
+      if (bean != null) { bean.traverse(visitor, ctx); }
+    }
+    visitor.endVisitCollectionProperty("homes", bean, propertyContext);
     bean = (com.google.web.bindery.autobean.shared.impl.AbstractAutoBean) com.google.web.bindery.autobean.shared.AutoBeanUtils.getAutoBean(as.getFriends());
     propertyContext = new com.google.web.bindery.autobean.gwt.client.impl.ClientPropertyContext(
       as,

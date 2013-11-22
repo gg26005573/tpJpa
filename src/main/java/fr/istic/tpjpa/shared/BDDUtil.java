@@ -42,5 +42,4 @@ public class BDDUtil {
 		query.select(from).where(from.get("id").in(id));
 		return manager.createQuery(query).getSingleResult();
 	}
-	
 }
